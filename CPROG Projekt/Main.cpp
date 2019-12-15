@@ -8,8 +8,8 @@ GameEngine eng;
 
 class Santa : public Sprite {
 public:
-	Santa(int x, int y) : Sprite(x, y, 300, 300) {
-		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\santa4.png");
+	Santa(int x, int y) : Sprite(x, y, 50, 50) {
+		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\New Piskel.png");
 	}
 	~Santa() {
 		SDL_DestroyTexture(texture);
@@ -18,23 +18,43 @@ public:
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
 	}
 	void upKey(){
-		rect.y--;
+		rect.y -= 4;
 	}
 	void downKey() {
-		rect.y++;
+		rect.y += 4;
 	}
 	void leftKey() {
-		rect.x--;
+		rect.x -= 4;
 	}
 	void rightKey() {
-		rect.x++;
+		rect.x += 4;
 	}
 	void tick() {}
 private:
 	SDL_Texture* texture;
 };
+class BackgroundSprite : public Sprite{
+public:
+	BackgroundSprite() : Sprite(0, 0, 700, 500) {
+		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
+	}
+	void draw() const {
+		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	}
+	void tick(){}
+private:
+	SDL_Texture* texture;
+};
+
+/*class Zombie : public Sprite {
+public:
+	Zombie() : Sprite()
+		~Zombie() {}
+};*/
 
 int main(int argc, char** argv) {
+	BackgroundSprite* bgs = new BackgroundSprite();
+	eng.add(bgs);
 	Santa* santa = new Santa(20,100);
 	eng.add(santa);
 	eng.run();
