@@ -19,16 +19,20 @@ public:
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
 	}
 	void upKey(){
-		rect.y -= 4;
+		if(rect.y > 20)
+			rect.y -= 4;
 	}
 	void downKey() {
-		rect.y += 4;
+		if(rect.y < 400)
+			rect.y += 4;
 	}
 	void leftKey() {
-		rect.x -= 4;
+		if( rect.x > -12)
+			rect.x -= 4;
 	}
 	void rightKey() {
-		rect.x += 4;
+		if(rect.x < 668)
+			rect.x += 4;
 	}
 	void tick() {}
 private:
