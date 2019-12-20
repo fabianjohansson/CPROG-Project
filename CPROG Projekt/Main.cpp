@@ -16,7 +16,8 @@ public:
 		SDL_DestroyTexture(texture);
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect());
 	}
 	void upKey(){
 		if(rect.y > 20)
@@ -44,7 +45,8 @@ public:
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect());
 	}
 	void tick(){}
 private:
