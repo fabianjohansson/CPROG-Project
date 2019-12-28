@@ -11,6 +11,7 @@ public:
 	virtual void downKey() {}
 	virtual void leftKey() {}
 	virtual void rightKey() {}
+	virtual void spaceDown(){}
 	virtual void draw() const = 0;
 	SDL_Rect getRect() const { return rect; }
 	//totally virtual method implemented in subclasses
