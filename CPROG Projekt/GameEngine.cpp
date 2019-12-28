@@ -2,22 +2,25 @@
 #include <SDL.h>
 #include "Sprite.h"
 #include "System.h"
+#include <typeinfo>
 using namespace std;
 
 #define FPS 80
 
 void GameEngine::add(Sprite* spr) {
-	sprites.push_back(spr);
+	added.push_back(spr);
 }
 
 void GameEngine::remove(Sprite* spr) {
 	removed.push_back(spr);
 }
 
+
+
 void GameEngine::run() {
 	bool quit = false;
+	const int tickInterval = 1000 / FPS;
 
-	Uint32 tickInterval = 1000 / FPS;
 	while (!quit) {
 		Uint32 nextTick = SDL_GetTicks() + tickInterval;
 		SDL_Event event;
@@ -52,11 +55,16 @@ void GameEngine::run() {
 					for (Sprite* s : sprites)
 						s->rightKey();
 					break;
-				}
-				
+				case SDLK_SPACE:
+					for (Sprite* s : sprites)
+						s->spaceDown();
+					break;
+				}	
 					
 			}//switch(event)
 		}//while SDL_PollEvent
+
+
 
 		//calls the sprite objects tick method
 		for (Sprite* s : sprites)
@@ -82,6 +90,9 @@ void GameEngine::run() {
 			s->draw();
 		SDL_RenderPresent(sys.ren);
 
+		//int delay = nextTick - SDL_GetTicks();
+		//if (delay > 0)
+			//SDL_Delay(delay);
 	}//while !quit
 
 }
