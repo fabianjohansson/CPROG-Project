@@ -2,7 +2,8 @@
 #include <SDL.h>
 #include "Sprite.h"
 #include "System.h"
-#include <typeinfo>
+#include <iostream>
+
 using namespace std;
 
 #define FPS 80
@@ -64,7 +65,16 @@ void GameEngine::run() {
 			}//switch(event)
 		}//while SDL_PollEvent
 
+		for (Sprite* s: sprites) 
+			for(vector<Sprite*>::iterator i = sprites.begin() +1;
+				i!= sprites.end(); i++)
+			if (s->detectCollision(*i)) {
+				cout << "Collision! " << endl;
+				removed.push_back(s);
+				removed.push_back(*i);
+			}
 
+		
 
 		//calls the sprite objects tick method
 		for (Sprite* s : sprites)

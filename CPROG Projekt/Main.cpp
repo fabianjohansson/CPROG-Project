@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include "System.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -24,6 +25,20 @@ public:
 	void draw() const {
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
 	}
+	string getClassName() {
+		return className;
+	}
+	bool detectCollision(Sprite* other) {
+		if (other->getClassName() == "Zombie" &&
+			this->getRect().x + this->getRect().w > other->getRect().x &&
+			other->getRect().x + other->getRect().w > this->getRect().x &&
+			this->getRect().y + this->getRect().h > other->getRect().y &&
+			other->getRect().y + other->getRect().h > this->getRect().y) {
+			return true;
+		}
+		return false;
+		}
+
 	void tick() {
 		counter++;
 		if (rect.x >= 700)
@@ -31,9 +46,11 @@ public:
 		else if (counter % 2 == 0)
 			rect.x++;
 	}
+	
 private:
 	SDL_Texture* texture;
 	int counter = 0;
+	string className = "Bullet";
 };
 
 class Santa : public Sprite {
@@ -42,7 +59,6 @@ public:
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Santa.png");
 	}
 	~Santa() {
-		//delete[] texture;
 		SDL_DestroyTexture(texture);
 	}
 	void draw() const {
@@ -64,14 +80,21 @@ public:
 		if(rect.x < 668)
 			rect.x += 4;
 	}
-
 	void spaceDown() {
 		Bullet* b = Bullet::getInstance(rect.x + 15, rect.y + 15);
 		eng.add(b);
 	}
+	bool detectCollision(Sprite* other) {
+		return false;
+	}
+
+	string getClassName() {
+		return className;
+	}
 	void tick() {}
 private:
 	SDL_Texture* texture;
+	string className = "Santa";
 };
 class BackgroundSprite : public Sprite{
 public:
@@ -79,8 +102,14 @@ public:
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
 	}
 	~BackgroundSprite(){
-		//delete[] texture;
-		SDL_DestroyTexture;
+		SDL_DestroyTexture(texture);
+	}
+	bool detectCollision(Sprite* other) {
+		return false;
+	}
+
+	string getClassName() {
+		return className;
 	}
 	void draw() const {
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
@@ -88,6 +117,7 @@ public:
 	void tick(){}
 private:
 	SDL_Texture* texture;
+	string className = "BackgroundSprite";
 };
 
 class Zombie : public Sprite {
@@ -98,6 +128,13 @@ public:
 	~Zombie() {
 		//delete[] texture;
 		SDL_DestroyTexture(texture);
+	}
+	bool detectCollision(Sprite* other) {
+		return false;
+	}
+
+	string getClassName() {
+		return className;
 	}
 	void draw() const {
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
@@ -110,6 +147,7 @@ public:
 private:
 	SDL_Texture* texture;
 	int counter = 0;
+	string className = "Zombie";
 };
 
 
