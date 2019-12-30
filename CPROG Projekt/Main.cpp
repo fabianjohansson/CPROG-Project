@@ -6,6 +6,9 @@
 #include "System.h"
 #include <iostream>
 #include <string>
+#include <cstdlib> 
+#include <ctime> 
+#include <vector>
 
 using namespace std;
 
@@ -16,9 +19,6 @@ class Bullet : public Sprite {
 public:
 	static Bullet* getInstance(int x, int y) {
 		return new Bullet(x,y);
-	}
-	Bullet(int x, int y) : Sprite(x, y, 8, 8) {
-		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\laser_bullet.png");
 	}
 	~Bullet() {
 		SDL_DestroyTexture(texture);
@@ -47,7 +47,10 @@ public:
 		else if (counter % 2 == 0)
 			rect.x++;
 	}
-	
+protected:
+	Bullet(int x, int y) : Sprite(x, y, 8, 8) {
+		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\laser_bullet.png");
+	}
 private:
 	SDL_Texture* texture;
 	int counter = 0;
@@ -56,7 +59,7 @@ private:
 
 class Santa : public Sprite {
 public:
-	Santa(int x, int y) : Sprite(x, y, 36, 36) {
+	Santa(int x, int y) : Sprite(x, y, 36, 36){
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Santa.png");
 	}
 	~Santa() {
@@ -97,34 +100,13 @@ private:
 	SDL_Texture* texture;
 	string className = "Santa";
 };
-class BackgroundSprite : public Sprite{
-public:
-	BackgroundSprite() : Sprite(0, 0, 700, 500) {
-		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
-	}
-	~BackgroundSprite(){
-		SDL_DestroyTexture(texture);
-	}
-	bool detectCollision(Sprite* other) {
-		return false;
-	}
-
-	string getClassName() {
-		return className;
-	}
-	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
-	}
-	void tick(){}
-private:
-	SDL_Texture* texture;
-	string className = "BackgroundSprite";
-};
 
 class Zombie : public Sprite {
 public:
-	Zombie() : Sprite(668,250,25,25) {
-		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Zombie_pixel.png");
+	static Zombie* getInstance() {
+		srand((int)time(0));
+		int y = (rand() % 400) + 20;
+		return new Zombie(668, y);
 	}
 	~Zombie() {
 		SDL_DestroyTexture(texture);
@@ -145,13 +127,50 @@ public:
 			eng.remove(this);
 			eng.switchGameEnded();
 		}
-		else if(counter % 10 == 0)
-		 rect.x --;
+		else if (counter % 10 == 0) {
+			rect.x--;
+		}
+		
+	}
+protected:
+	Zombie(int x, int y) : Sprite(x, y, 25, 25) {
+		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Zombie_pixel.png");
 	}
 private:
 	SDL_Texture* texture;
 	int counter = 0;
 	string className = "Zombie";
+};
+
+class BackgroundSprite : public Sprite {
+public:
+	BackgroundSprite() : Sprite(0, 0, 700, 500) {
+		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
+	}
+	~BackgroundSprite() {
+		SDL_DestroyTexture(texture);
+	}
+	bool detectCollision(Sprite* other) {
+		return false;
+	}
+
+	string getClassName() {
+		return className;
+	}
+	void draw() const {
+		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	}
+	void tick() {
+		counter++;
+		if (counter % 1000 == 0) {
+			Zombie* zombie = Zombie::getInstance();
+			eng.add(zombie);
+		}
+	}
+private:
+	SDL_Texture* texture;
+	string className = "BackgroundSprite";
+	int counter = 0;
 };
 
 
@@ -161,8 +180,17 @@ int main(int argc, char** argv) {
 	eng.add(bgs);
 	Santa* santa = new Santa(20,100);
 	eng.add(santa);
-	Zombie* zombie = new Zombie();
-	eng.add(zombie);
+	//Zombie* zombie = Zombie::getInstance();
+	//eng.add(zombie);
 	eng.run();
+
+	//std::vector<Zombie*> zombies;
+	//int i = 0;
+	//while (i++ <= 10) {
+	//	Zombie* zombie = Zombie::getInstance();
+	//	zombies.push_back(zombie);
+	//}
+
+
 	return 0;
 }

@@ -76,6 +76,7 @@ void GameEngine::run() {
 			Label* gameOver = Label::getInstance(250, 200, 200, 140, "Game Over");
 			sprites.push_back(gameOver);
 		}
+
 			
 		for (Sprite* s: sprites) 
 			for(vector<Sprite*>::iterator i = sprites.begin() +1;
@@ -113,5 +114,4 @@ void GameEngine::run() {
 		SDL_RenderPresent(sys.ren);
 
 	}//while !quit
-
 }
