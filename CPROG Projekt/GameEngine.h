@@ -9,10 +9,11 @@ public:
 	void add(Sprite* spr);
 	void remove(Sprite* spr);
 	void run();
-	//bool collision(Sprite* first, Sprite* second);
+	void switchGameEnded();
 private:
 	std::vector<Sprite*> sprites;
 	std::vector<Sprite*> added, removed;
+	bool gameEnded;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include "GameEngine.h"
 #include "Sprite.h"
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include "System.h"
 #include <iostream>
 #include <string>
@@ -126,7 +127,6 @@ public:
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Zombie_pixel.png");
 	}
 	~Zombie() {
-		//delete[] texture;
 		SDL_DestroyTexture(texture);
 	}
 	bool detectCollision(Sprite* other) {
@@ -141,7 +141,11 @@ public:
 	}
 	void tick() {
 		counter++;
-		if(counter % 10 == 0)
+		if (rect.x < -12) {
+			eng.remove(this);
+			eng.switchGameEnded();
+		}
+		else if(counter % 10 == 0)
 		 rect.x --;
 	}
 private:
@@ -149,6 +153,7 @@ private:
 	int counter = 0;
 	string className = "Zombie";
 };
+
 
 
 int main(int argc, char** argv) {

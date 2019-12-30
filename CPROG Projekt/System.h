@@ -2,6 +2,7 @@
 #define SYSTEM_H
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 struct System
 {	
@@ -15,6 +16,7 @@ struct System
 	//renderer pointer
 	SDL_Renderer* ren;
 	Mix_Chunk* music;
+	TTF_Font* font;
 };
 
 extern System sys;

@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "Sprite.h"
 #include "System.h"
+#include "Label.h"
 #include <iostream>
 
 using namespace std;
@@ -16,10 +17,15 @@ void GameEngine::remove(Sprite* spr) {
 	removed.push_back(spr);
 }
 
+void GameEngine::switchGameEnded() {
+	gameEnded = !gameEnded;
+}
 
 
 void GameEngine::run() {
 	bool quit = false;
+	gameEnded = false;
+
 	const int tickInterval = 1000 / FPS;
 
 	while (!quit) {
@@ -39,6 +45,7 @@ void GameEngine::run() {
 					s->mouseUp(event.button.x, event.button.y);
 				break;
 			case SDL_KEYDOWN:
+				if (!gameEnded)
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
 					for (Sprite* s : sprites)
@@ -65,6 +72,11 @@ void GameEngine::run() {
 			}//switch(event)
 		}//while SDL_PollEvent
 
+		if(gameEnded){
+			Label* gameOver = Label::getInstance(250, 200, 200, 140, "Game Over");
+			sprites.push_back(gameOver);
+		}
+			
 		for (Sprite* s: sprites) 
 			for(vector<Sprite*>::iterator i = sprites.begin() +1;
 				i!= sprites.end(); i++)
@@ -100,9 +112,6 @@ void GameEngine::run() {
 			s->draw();
 		SDL_RenderPresent(sys.ren);
 
-		//int delay = nextTick - SDL_GetTicks();
-		//if (delay > 0)
-			//SDL_Delay(delay);
 	}//while !quit
 
 }
