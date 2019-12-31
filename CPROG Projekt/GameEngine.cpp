@@ -17,8 +17,17 @@ void GameEngine::remove(Sprite* spr) {
 	removed.push_back(spr);
 }
 
+
 void GameEngine::switchGameEnded() {
 	gameEnded = !gameEnded;
+}
+
+void GameEngine::addKill() {
+	kills++;
+}
+
+int GameEngine::getKills() {
+	return kills;
 }
 
 
@@ -72,9 +81,12 @@ void GameEngine::run() {
 			}//switch(event)
 		}//while SDL_PollEvent
 
-		if(gameEnded){
+		if(gameEnded && kills < 10){
 			Label* gameOver = Label::getInstance(250, 200, 200, 140, "Game Over");
 			sprites.push_back(gameOver);
+		}else if (gameEnded) {
+			Label* victory = Label::getInstance(250, 200, 200, 140, "You won!");
+			sprites.push_back(victory);
 		}
 
 			

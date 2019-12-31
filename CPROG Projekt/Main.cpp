@@ -12,7 +12,6 @@
 
 using namespace std;
 
-
 GameEngine eng;
 
 class Bullet : public Sprite {
@@ -35,6 +34,9 @@ public:
 			other->getRect().x + other->getRect().w > this->getRect().x &&
 			this->getRect().y + this->getRect().h > other->getRect().y &&
 			other->getRect().y + other->getRect().h > this->getRect().y) {
+			eng.addKill();
+			if (eng.getKills() == 10)
+				eng.switchGameEnded();
 			return true;
 		}
 		return false;
@@ -142,12 +144,12 @@ private:
 	string className = "Zombie";
 };
 
-class BackgroundSprite : public Sprite {
+class Background : public Sprite {
 public:
-	BackgroundSprite() : Sprite(0, 0, 700, 500) {
+	Background() : Sprite(0, 0, 700, 500) {
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\background5.png");
 	}
-	~BackgroundSprite() {
+	~Background() {
 		SDL_DestroyTexture(texture);
 	}
 	bool detectCollision(Sprite* other) {
@@ -162,35 +164,29 @@ public:
 	}
 	void tick() {
 		counter++;
-		if (counter % 1000 == 0) {
+		if (counter % 1000 == 0 && spawnedZombies < 10) {
 			Zombie* zombie = Zombie::getInstance();
 			eng.add(zombie);
+			spawnedZombies++;
 		}
 	}
 private:
 	SDL_Texture* texture;
-	string className = "BackgroundSprite";
+	string className = "Background";
 	int counter = 0;
+	int spawnedZombies = 0;
 };
 
 
 
 int main(int argc, char** argv) {
-	BackgroundSprite* bgs = new BackgroundSprite();
-	eng.add(bgs);
+	Background* bg = new Background();
+	eng.add(bg);
 	Santa* santa = new Santa(20,100);
 	eng.add(santa);
-	//Zombie* zombie = Zombie::getInstance();
-	//eng.add(zombie);
 	eng.run();
 
-	//std::vector<Zombie*> zombies;
-	//int i = 0;
-	//while (i++ <= 10) {
-	//	Zombie* zombie = Zombie::getInstance();
-	//	zombies.push_back(zombie);
-	//}
-
+		
 
 	return 0;
 }
