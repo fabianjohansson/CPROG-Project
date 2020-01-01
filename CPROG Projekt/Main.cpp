@@ -23,7 +23,8 @@ public:
 		SDL_DestroyTexture(texture);
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 	}
 	string getClassName() {
 		return className;
@@ -68,7 +69,8 @@ public:
 		SDL_DestroyTexture(texture);
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 	}
 	void upKey(){
 		if(rect.y > 20)
@@ -121,7 +123,8 @@ public:
 		return className;
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 	}
 	void tick() {
 		counter++;
@@ -160,7 +163,8 @@ public:
 		return className;
 	}
 	void draw() const {
-		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+		const SDL_Rect &rect = getRect();
+		SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 	}
 	void tick() {
 		counter++;
