@@ -103,7 +103,10 @@ void GameEngine::run() {
 
 		//calls the sprite objects tick method
 		for (Sprite* s : sprites)
-			s->tick();
+			if (!gameEnded) {
+				s->tick();
+			}
+			
 
 		for (Sprite* s : added)
 			sprites.push_back(s);

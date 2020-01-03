@@ -25,10 +25,10 @@ public:
 	void draw() const {
 		SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
 	}
-	string getClassName() {
+	string getClassName() const{
 		return className;
 	}
-	bool detectCollision(Sprite* other) {
+	bool detectCollision(const Sprite* other) {
 		if (other->getClassName() == "Zombie" &&
 			this->getRect().x + this->getRect().w > other->getRect().x &&
 			other->getRect().x + other->getRect().w > this->getRect().x &&
@@ -87,20 +87,25 @@ public:
 			rect.x += 4;
 	}
 	void spaceDown() {
-		Bullet* b = Bullet::getInstance(rect.x + 15, rect.y + 15);
-		eng.add(b);
+		if(counter % 2 == 0){
+			Bullet* b = Bullet::getInstance(rect.x + 15, rect.y + 15);
+			eng.add(b);
+		}
 	}
-	bool detectCollision(Sprite* other) {
+	bool detectCollision(const Sprite* other) {
 		return false;
 	}
 
-	string getClassName() {
+	string getClassName() const {
 		return className;
 	}
-	void tick() {}
+	void tick() {
+		counter++;
+	}
 private:
 	SDL_Texture* texture;
 	string className = "Santa";
+	int counter = 0;
 };
 
 class Zombie : public Sprite {
@@ -113,11 +118,11 @@ public:
 	~Zombie() {
 		SDL_DestroyTexture(texture);
 	}
-	bool detectCollision(Sprite* other) {
+	bool detectCollision(const Sprite* other) {
 		return false;
 	}
 
-	string getClassName() {
+	string getClassName() const {
 		return className;
 	}
 	void draw() const {
@@ -152,11 +157,11 @@ public:
 	~Background() {
 		SDL_DestroyTexture(texture);
 	}
-	bool detectCollision(Sprite* other) {
+	bool detectCollision(const Sprite* other) {
 		return false;
 	}
 
-	string getClassName() {
+	string getClassName() const{
 		return className;
 	}
 	void draw() const {
@@ -164,6 +169,7 @@ public:
 	}
 	void tick() {
 		counter++;
+		static int spawnedZombies;
 		if (counter % 1000 == 0 && spawnedZombies < 10) {
 			Zombie* zombie = Zombie::getInstance();
 			eng.add(zombie);
@@ -174,7 +180,6 @@ private:
 	SDL_Texture* texture;
 	string className = "Background";
 	int counter = 0;
-	int spawnedZombies = 0;
 };
 
 
@@ -186,7 +191,8 @@ int main(int argc, char** argv) {
 	eng.add(santa);
 	eng.run();
 
-		
+	delete bg;
+	delete santa;
 
 	return 0;
 }

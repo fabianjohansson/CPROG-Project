@@ -14,8 +14,8 @@ public:
 	virtual void leftKey() {}
 	virtual void rightKey() {}
 	virtual void spaceDown(){}
-	virtual std::string getClassName() { return className; }
-	virtual bool detectCollision(Sprite* other) { return false; }
+	virtual std::string getClassName() const{ return className; }
+	virtual bool detectCollision(const Sprite* other) { return false; }
 	virtual void draw() const = 0;
 	SDL_Rect getRect() const { return rect; }
 	//totally virtual method implemented in subclasses
