@@ -85,7 +85,7 @@ void GameEngine::run() {
 			Label* gameOver = Label::getInstance(250, 200, 200, 140, "Game Over");
 			sprites.push_back(gameOver);
 		}else if (gameEnded) {
-			Label* victory = Label::getInstance(250, 200, 200, 140, "You won!");
+			Label* victory = Label::getInstance(250, 200, 200, 140, "You win!");
 			sprites.push_back(victory);
 		}
 

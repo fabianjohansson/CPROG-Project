@@ -22,6 +22,10 @@ public:
 	virtual void tick() = 0;
 protected:
 	Sprite(int x, int y, int w, int h) : rect{x,y,w,h} {}
+	//removes copy constructor
+	Sprite(const Sprite&) = delete;
+	//removes assignment operator
+	const Sprite& operator=(const Sprite&) = delete;
 	SDL_Rect rect;
 	std::string className;
 };

@@ -194,6 +194,7 @@ int main(int argc, char** argv) {
 	Santa* santa = new Santa(20,100);
 	eng.add(santa);
 	eng.run();
+	
 
 	delete bg;
 	delete santa;
