@@ -9,6 +9,7 @@ Label::Label(int x, int y, int w, int h, string txt)
 	SDL_Surface* surf = TTF_RenderText_Blended(sys.font, text.c_str(), {255,0,0});
 	texture = SDL_CreateTextureFromSurface(sys.ren, surf);
 	SDL_FreeSurface(surf);
+	gameHasEnded = false;
 }
 void Label::draw() const {
 	const SDL_Rect &rect = getRect();
@@ -21,6 +22,12 @@ void Label::setText(string newTxt) {
 	SDL_DestroyTexture(texture);
 	texture = SDL_CreateTextureFromSurface(sys.ren, surf);
 	SDL_FreeSurface(surf);
+}
+void Label::switchGameHasEnded() {
+	gameHasEnded = !gameHasEnded;
+}
+bool Label::getGameHasEnded() {
+	return gameHasEnded; 
 }
 
 Label::~Label() {

@@ -13,11 +13,14 @@ public:
 	~Label();
 	std::string getText() const { return text; }
 	void setText(std::string newTxt);
+	void switchGameHasEnded();
+	bool getGameHasEnded(); 
 protected:
 	Label(int x, int y, int w, int h, std::string txt);
 private:
 	SDL_Texture* texture;
 	std::string text;
+	bool gameHasEnded;
 };
 
 #endif
