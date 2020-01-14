@@ -1,6 +1,6 @@
 #include "Label.h"
 #include "System.h"
-#include <SDL.h>
+
 
 using namespace std;
 
@@ -9,11 +9,9 @@ Label::Label(int x, int y, int w, int h, string txt)
 	SDL_Surface* surf = TTF_RenderText_Blended(sys.font, text.c_str(), {255,0,0});
 	texture = SDL_CreateTextureFromSurface(sys.ren, surf);
 	SDL_FreeSurface(surf);
-	gameHasEnded = false;
 }
 void Label::draw() const {
-	const SDL_Rect &rect = getRect();
-	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
+	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
 }
 
 void Label::setText(string newTxt) {
@@ -23,13 +21,9 @@ void Label::setText(string newTxt) {
 	texture = SDL_CreateTextureFromSurface(sys.ren, surf);
 	SDL_FreeSurface(surf);
 }
-void Label::switchGameHasEnded() {
-	gameHasEnded = !gameHasEnded;
-}
-bool Label::getGameHasEnded() {
-	return gameHasEnded; 
-}
+
 
 Label::~Label() {
 	SDL_DestroyTexture(texture);
 }
+void Label::tick() {}

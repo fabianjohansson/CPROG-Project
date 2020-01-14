@@ -15,4 +15,6 @@ private:
 	int kills = 0;
 };
 
+extern GameEngine eng;
+
 #endif

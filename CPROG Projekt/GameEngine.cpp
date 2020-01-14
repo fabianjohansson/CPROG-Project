@@ -5,6 +5,8 @@
 #include "Label.h"
 #include <iostream>
 
+GameEngine eng;
+
 using namespace std;
 
 #define FPS 80
@@ -39,16 +41,7 @@ void GameEngine::run() {
 	
 			}//switch(event)
 		}//while SDL_PollEvent
-
-		/*if(gameEnded && kills < 10){
-			Label* gameOver = Label::getInstance(250, 200, 200, 140, "Game Over");
-			sprites.push_back(gameOver);
-		}else if (gameEnded) {
-			Label* victory = Label::getInstance(250, 200, 200, 140, "You win!");
-			sprites.push_back(victory);
-		}*/
-
-			
+	
 		for (Sprite* s: sprites) 
 			for(vector<Sprite*>::iterator i = sprites.begin() +1;
 				i!= sprites.end(); i++)
