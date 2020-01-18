@@ -11,7 +11,8 @@ Bullet::~Bullet() {
 }
 
 void Bullet::draw() const {
-	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	const SDL_Rect& rect = getRect();
+	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 }
 
 bool Bullet::detectCollision(Sprite* other) {
@@ -45,6 +46,7 @@ void Bullet::tick() {
 }
 
 Bullet::Bullet(int x, int y) : Sprite(x, y, 8, 8) {
+	//Här ska sökvägen för filen red laser.png läggas in
 	texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\red laser.png");
 }
 

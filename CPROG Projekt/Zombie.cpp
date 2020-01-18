@@ -6,6 +6,7 @@
 
 
 Zombie::Zombie(int x, int y) : Sprite(x, y, 25, 25) {
+	//Här ska sökvägen för filen Zombie_pixel.png läggas in
 	texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Zombie_pixel.png");
 }
 Zombie::~Zombie() {
@@ -15,7 +16,8 @@ bool Zombie::detectCollision(Sprite* other) {
 	return false;
 }
 void Zombie::draw() const {
-	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	const SDL_Rect& rect = getRect();
+	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 }
 
 void Zombie::tick() {

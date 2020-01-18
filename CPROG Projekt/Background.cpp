@@ -14,7 +14,8 @@ bool Background::detectCollision(Sprite* other) {
 }
 
 void Background::draw() const {
-	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	const SDL_Rect& rect = getRect();
+	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 }
 void Background::tick() {
 	if (!gg.getGameHasEnded()) {
@@ -28,6 +29,7 @@ void Background::tick() {
 	}
 }
 	Background::Background() : Sprite(0, 0, 700, 500) {
+		//Här ska sökvägen för filen backgroundIce.png läggas in
 		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\backgroundIce.png");
 	}
 

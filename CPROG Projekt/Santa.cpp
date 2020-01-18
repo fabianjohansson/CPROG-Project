@@ -10,7 +10,8 @@ Santa::	~Santa() {
 }
 
 void Santa::draw() const {
-	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	const SDL_Rect& rect = getRect();
+	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 }
 
 void Santa::upKey() {
@@ -70,5 +71,6 @@ void Santa::tick() {
 }
 
 Santa::Santa(int x, int y) : Sprite(x, y, 36, 36) {
+	//Här ska sökvägen för filen Santa.png läggas in
 	texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\Santa.png");
 }

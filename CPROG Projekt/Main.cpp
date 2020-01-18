@@ -3,11 +3,7 @@
 #include "Background.h"
 #include "Santa.h"
 
-
 using namespace std;
-
-
-
 
 int main(int argc, char** argv) {
 	Background* bg = Background::getInstance();
@@ -15,7 +11,6 @@ int main(int argc, char** argv) {
 	Santa* santa = Santa::getInstance(20, 100);
 	eng.add(santa);
 	eng.run();
-	
 
 	delete bg;
 	delete santa;

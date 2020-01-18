@@ -11,7 +11,8 @@ Label::Label(int x, int y, int w, int h, string txt)
 	SDL_FreeSurface(surf);
 }
 void Label::draw() const {
-	SDL_RenderCopy(sys.ren, texture, NULL, &getRect());
+	const SDL_Rect& rect = getRect();
+	SDL_RenderCopy(sys.ren, texture, NULL, &rect);
 }
 
 void Label::setText(string newTxt) {
