@@ -1,5 +1,4 @@
 #include "Zombie.h"
-#include "Label.h"
 #include "GameEngine.h"
 #include "System.h"
 #include "GameOver.h"
@@ -11,6 +10,7 @@ Zombie::Zombie(int x, int y) : Sprite(x, y, 25, 25) {
 }
 Zombie::~Zombie() {
 	SDL_DestroyTexture(texture);
+	delete gameOver;
 }
 bool Zombie::detectCollision(Sprite* other) {
 	return false;
@@ -26,7 +26,7 @@ void Zombie::tick() {
 		if (rect.x < -12) {
 			eng.remove(this);
 			gg.switchGameHasEnded();
-			Label* gameOver = Label::getInstance(250, 200, 200, 140, "You Lost!");
+			gameOver = Label::getInstance(250, 200, 200, 140, "You Lost!");
 			eng.add(gameOver);
 		}
 		else if (counter % 20 == 0) {

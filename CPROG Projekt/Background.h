@@ -2,7 +2,7 @@
 #define	BACKGROUND_H
 #include "Sprite.h"
 
-class Background :	public Sprite {
+class Background : public Sprite {
 public:
 	static Background* getInstance() {
 		return new Background();
@@ -15,7 +15,7 @@ public:
 	void draw() const;
 
 	void tick();
-	
+
 private:
 	Background();
 	SDL_Texture* texture;
@@ -23,4 +23,3 @@ private:
 };
 
 #endif
-

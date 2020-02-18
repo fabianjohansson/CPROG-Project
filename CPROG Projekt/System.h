@@ -5,7 +5,7 @@
 #include <SDL_ttf.h>
 
 struct System
-{	
+{
 	//constructor
 	System();
 	//destructor
@@ -22,4 +22,3 @@ struct System
 extern System sys;
 
 #endif
-

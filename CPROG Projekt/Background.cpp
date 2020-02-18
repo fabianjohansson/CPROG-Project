@@ -28,8 +28,7 @@ void Background::tick() {
 		}
 	}
 }
-	Background::Background() : Sprite(0, 0, 700, 500) {
-		//Här ska sökvägen för filen backgroundIce.png läggas in
-		texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\backgroundIce.png");
-	}
-
+Background::Background() : Sprite(0, 0, 700, 500) {
+	//Här ska sökvägen för filen backgroundIce.png läggas in
+	texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\backgroundIce.png");
+}

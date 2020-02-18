@@ -14,8 +14,8 @@ public:
 	std::string getText() const { return text; }
 	void setText(std::string newTxt);
 
-//protected:
-	
+	//protected:
+
 private:
 	Label(int x, int y, int w, int h, std::string txt);
 	SDL_Texture* texture;

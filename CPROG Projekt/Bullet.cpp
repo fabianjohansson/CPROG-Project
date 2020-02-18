@@ -2,7 +2,6 @@
 #include "Zombie.h"
 #include "GameEngine.h"
 #include "System.h"
-#include "Label.h"
 #include "GameOver.h"
 
 
@@ -25,7 +24,7 @@ bool Bullet::detectCollision(Sprite* other) {
 			collisions++;
 			if (collisions == 10) {
 				gg.switchGameHasEnded();
-				Label* gameWon = Label::getInstance(250, 200, 200, 140, "You win!");
+				gameWon = Label::getInstance(250, 200, 200, 140, "You win!");
 				eng.add(gameWon);
 			}
 
@@ -49,4 +48,3 @@ Bullet::Bullet(int x, int y) : Sprite(x, y, 8, 8) {
 	//Här ska sökvägen för filen red laser.png läggas in
 	texture = IMG_LoadTexture(sys.ren, "C:\\Users\\fabian\\Desktop\\Plugg\\HT 2019\\CPROG\\Sprites\\red laser.png");
 }
-

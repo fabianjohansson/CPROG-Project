@@ -5,7 +5,7 @@ System::System() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
 	win = SDL_CreateWindow("Santa saving christmas", 10, 10, 700, 500, 0);
-	ren = SDL_CreateRenderer(win,-1,0);
+	ren = SDL_CreateRenderer(win, -1, 0);
 	Mix_OpenAudio(20050, AUDIO_S16SYS, 2, 4096);
 	music = Mix_LoadWAV("filepath");
 	Mix_PlayChannel(-1, music, -1);

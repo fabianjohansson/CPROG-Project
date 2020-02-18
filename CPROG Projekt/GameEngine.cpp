@@ -38,25 +38,25 @@ void GameEngine::run() {
 				for (Sprite* s : sprites)
 					s->keyDown(event.key.keysym.sym);
 				break;
-	
+
 			}//switch(event)
 		}//while SDL_PollEvent
-	
-		for (Sprite* s: sprites) 
-			for(vector<Sprite*>::iterator i = sprites.begin() +1;
-				i!= sprites.end(); i++)
-			if (s->detectCollision(*i)) {
-				//cout << "Collision! " << endl;
-				removed.push_back(s);
-				removed.push_back(*i);
-			}
 
-		
+		for (Sprite* s : sprites)
+			for (vector<Sprite*>::iterator i = sprites.begin() + 1;
+				i != sprites.end(); i++)
+				if (s->detectCollision(*i)) {
+					//cout << "Collision! " << endl;
+					removed.push_back(s);
+					removed.push_back(*i);
+				}
+
+
 
 		//calls the sprite objects tick method
 		for (Sprite* s : sprites)
-				s->tick();
-			
+			s->tick();
+
 
 		for (Sprite* s : added)
 			sprites.push_back(s);
@@ -66,6 +66,7 @@ void GameEngine::run() {
 			for (vector<Sprite*>::iterator i = sprites.begin();
 				i != sprites.end();)
 				if (*i == s) {
+					delete s;
 					i = sprites.erase(i);
 				}
 				else
